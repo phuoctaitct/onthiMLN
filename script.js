@@ -22,9 +22,9 @@ let answers = []
 img.style.display = 'none';
 message.classList.add('messageStyle');
 
-function loadCourse() {
+async function loadCourse() {
     var course = document.getElementById("course-code").value;
-    fetchQuestions(`${course.toLowerCase()}.json`);
+    await fetchQuestions(`${course}.json`);
     document.getElementById("code-input-container").style.display = 'none';
     document.querySelectorAll('.pipe_sprite').forEach((e) => {
         e.remove();
@@ -37,7 +37,6 @@ function loadCourse() {
     score_val.innerHTML = '0';
     message.classList.remove('messageStyle');
     play();
-
 }
 
 async function fetchQuestions(filePath) {
@@ -45,12 +44,14 @@ async function fetchQuestions(filePath) {
         const response = await fetch(filePath); // Adjust the file path based on your project structure
         const data = await response.json();
         questions = data.map(item => item.question);
+        console.log(questions);
         answers = data.map(item => item.answer);
     } catch (error) {
         console.error('Error fetching questions:', error);
     }
 }
 function getQuestionLength() {
+    console.log(questions.length);
     return questions.length;
 }
 function play() {
