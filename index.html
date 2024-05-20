@@ -5,16 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/favicon.ico"/>
-    <title>Ôn tập MLN111_TaiNP11</title>
+    <title>Ôn tập Mác-Lênin_TaiNP11</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <div class="background"></div>
     <img src="images/Bird.png" alt="bird-img" class="bird" id="bird-1">
-    <div class="message">
+    <div class="message" style="display:none">
         Enter để bắt đầu ôn tập MLN111 <p><span style="color: red;">&uarr;</span> Sử dụng phím mũi tên để điều khiển</p>
     </div>
+    <div class="input-container" id="code-input-container">
+        <input type="text" id="course-code" placeholder="Enter course code" />
+        <button id="get-code-btn" onclick="loadCourse()">Start</button>
+    </div>
+    
+    
     <div class="score">
         <span class="score_title"></span>
         <span class="score_val"></span>
