@@ -24,7 +24,7 @@ message.classList.add('messageStyle');
 
 async function loadCourse() {
     var course = document.getElementById("course-code").value;
-    await fetchQuestions(`${course}.json`);
+    await fetchQuestions(`${course.toLowerCase()}.json`);
     document.getElementById("code-input-container").style.display = 'none';
     document.querySelectorAll('.pipe_sprite').forEach((e) => {
         e.remove();
