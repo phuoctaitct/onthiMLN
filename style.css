@@ -134,3 +134,43 @@
 	font-size: 20px;
 	color: blue;
 }
+
+.input-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;  /* Adds space between the input field and button */
+}
+
+#course-code {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: 2px solid #007BFF; /* Stylish blue border */
+    border-radius: 5px; /* Rounded corners for the input field */
+    outline: none; /* Removes the default focus highlight */
+    transition: border-color 0.3s ease-in-out;
+}
+
+#course-code:focus {
+    border-color: #0056b3; /* Darker blue when focused */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF; /* Matching blue background for the button */
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
