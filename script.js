@@ -15,31 +15,34 @@ let message = document.querySelector('.message');
 let score_title = document.querySelector('.score_title');
 
 let game_state = 'Start';
-img.style.display = 'none';
-message.classList.add('messageStyle');
 
-document.addEventListener('keydown', (e) => {
-
-    if (e.key == 'Enter' && game_state != 'Play') {
-        document.querySelectorAll('.pipe_sprite').forEach((e) => {
-            e.remove();
-        });
-        img.style.display = 'block';
-        bird.style.top = '40vh';
-        game_state = 'Play';
-        message.innerHTML = '';
-        score_title.innerHTML = 'Score : ';
-        score_val.innerHTML = '0';
-        message.classList.remove('messageStyle');
-        play();
-    }
-});
 let questions = []
 let answers = []
 
-async function fetchQuestions() {
+img.style.display = 'none';
+message.classList.add('messageStyle');
+
+function loadCourse() {
+    var course = document.getElementById("course-code").value;
+    fetchQuestions(`${course.toLowerCase()}.json`);
+    document.getElementById("code-input-container").style.display = 'none';
+    document.querySelectorAll('.pipe_sprite').forEach((e) => {
+        e.remove();
+    });
+    img.style.display = 'block';
+    bird.style.top = '40vh';
+    game_state = 'Play';
+    message.innerHTML = '';
+    score_title.innerHTML = 'Score : ';
+    score_val.innerHTML = '0';
+    message.classList.remove('messageStyle');
+    play();
+
+}
+
+async function fetchQuestions(filePath) {
     try {
-        const response = await fetch('questions.json'); // Adjust the file path based on your project structure
+        const response = await fetch(filePath); // Adjust the file path based on your project structure
         const data = await response.json();
         questions = data.map(item => item.question);
         answers = data.map(item => item.answer);
@@ -47,7 +50,6 @@ async function fetchQuestions() {
         console.error('Error fetching questions:', error);
     }
 }
-fetchQuestions();
 function getQuestionLength() {
     return questions.length;
 }
@@ -66,11 +68,12 @@ function play() {
                 element.remove();
             } else {
                 if (bird_props.left < pipe_sprite_props.left + pipe_sprite_props.width && bird_props.left + bird_props.width > pipe_sprite_props.left && bird_props.top < pipe_sprite_props.top + pipe_sprite_props.height && bird_props.top + bird_props.height > pipe_sprite_props.top) {
-                    game_state = 'End';
-                    message.innerHTML = 'Game Over'.fontcolor('red') + '<br>Press Enter To Restart';
-                    message.classList.add('messageStyle');
-                    img.style.display = 'none';
+                    // game_state = 'End';
+                    // message.innerHTML = 'Game Over'.fontcolor('red') + '<br>Press Enter To Restart';
+                    // message.classList.add('messageStyle');
+                    // img.style.display = 'none';
                     sound_die.play();
+                    endGame();
                     return;
                 } else {
                     if (pipe_sprite_props.right < bird_props.left && pipe_sprite_props.right + move_speed >= bird_props.left && element.increase_score == '1') {
@@ -203,11 +206,11 @@ function play() {
 
     function endGame() {
         let popup = document.getElementById("end-popup");
+        game_state = "End";
         popup.style.top = '50%';
         popup.style.left = '50%';
         popup.style.transform = 'translate(-50%, -50%)';
         popup.style.display = 'block';
-        game_state = "End";
 
         document.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
